@@ -17,11 +17,17 @@ public class MainMailer {
 
         List<StringBuilder> population = getNames(names);
         Map<StringBuilder, Integer> counts = new TreeMap<>();//tree map to be sorted
-        population.forEach(s->{
-            counts.merge(s,1, (o1,n1)-> o1+n1);
+        population.forEach(s -> {
+            counts.merge(s, 1, (o1, n1) -> o1 + n1);
             //i use this on purpose, to strengthen the understanding of using interfaces
         });
         System.out.println(counts);
+        StringBuilder annJonesPhd = new StringBuilder("Ann Jones Ph.D.");
+        System.out.println("There are " + counts.get(annJonesPhd) + " records for " + annJonesPhd);
+
+        List<StringBuilder> cleanedNames = standardizeNames(population);
+        System.out.println(cleanedNames);
+
     }
 
     private static List<StringBuilder> getNames(String[] names) {
@@ -35,5 +41,20 @@ public class MainMailer {
         }
 
         return list;
+    }
+
+    private static List<StringBuilder> standardizeNames(List<StringBuilder> list) {
+        List<StringBuilder> newList = new ArrayList<>();
+        for (var name : list) {
+            for (String suffix : new String[]{"Ph.D.", "M.D."}) {
+                int startIndex = -1;
+                //we reassign the value to startIndex in the if statement
+                if ((startIndex = name.indexOf(suffix)) > -1) {
+                    name.replace(startIndex - 1, startIndex + suffix.length(), "");
+                }
+                newList.add(name);
+            }
+        }
+        return newList;
     }
 }
