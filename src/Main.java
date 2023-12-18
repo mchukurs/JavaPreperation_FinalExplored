@@ -33,6 +33,8 @@ public class Main {
         System.out.println("After Method, xArgument: "+ xArgument);
         System.out.println("After Method, zArgument: "+ zArgument);
         Logger.logToConsole("hello");
+
+
         StringBuilder tracker = new StringBuilder("Step 1 os abc");
         Logger.logToConsole(tracker);
         tracker.append(", Step 2 is xyz");
